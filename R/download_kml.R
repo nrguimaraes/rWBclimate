@@ -23,7 +23,7 @@ download_kml <- function(locator) {
   
   #check which kml are already downloaded
   to_download <- locator[!locator%in%kml_files]
-  base_url <- "http://api.worldbank.org/v2/"
+  base_url <- "http://api.worldbank.org/v2/country"
  #country/all/indicator/SP.POP.TOTL
   if(length(to_download) > 0){
     download_pb <- txtProgressBar(min = 0, max = length(to_download), style = 3)
@@ -31,7 +31,7 @@ download_kml <- function(locator) {
   ###Loop through downloading each file and writing it.
   
    for(i in 1:length(to_download)) {
-      full_url <- paste(base_url, geo_ref, "kml", to_download[i], sep="/")
+      full_url <- paste(base_url, to_download[i], sep="/")
       temp_file <- content(GET(url = full_url), as = "text")
       ###Write file
       to_write<- file(paste(my_path,to_download[i], ".kml", sep=""), open = "w")
